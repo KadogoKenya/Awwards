@@ -27,3 +27,8 @@ class ProfileTestClass(TestCase):
     def setUp(self):
         self.profile=Profile()
         self.profile.save_profile()
+
+    def test_instance(self):
+        self.assertTrue(isinstance(self.profile,Profile))
+
+    
