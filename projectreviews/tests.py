@@ -3,7 +3,7 @@ from .models import Projects,Profile,Review
 # Create your tests here.
 
 
-class ProjectsTest(TestCase):
+class ProjectsTestClass(TestCase):
     def setUp(self):
         self.description=Projects(location='description')
 
@@ -22,3 +22,8 @@ class ProjectsTest(TestCase):
         self.description.delete_location('description')
         projects = Projects.objects.all()
         self.assertTrue(len(projects)==0)
+
+class ProfileTestClass(TestCase):
+    def setUp(self):
+        self.profile=Profile()
+        self.profile.save_profile()
