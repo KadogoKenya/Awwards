@@ -3,7 +3,6 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
 
-
 class Projects(models.Model):
     image = models.ImageField(upload_to='profile_pics/')
     description = models.TextField()
