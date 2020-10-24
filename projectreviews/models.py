@@ -13,10 +13,66 @@ class Projects(models.Model):
     link = models.URLField()
     author_profile = models.ForeignKey(Profile, on_delete=models.CASCADE, default='1', blank = True)
 
+    def save_project(self):
+        self.save()
+
+    def __str__(self):
+        return f'{self.author} Post'
+
+    class Meta:
+        db_table = 'project'
+        ordering = ['-created_date']
+
+    def delete_project(self):
+        self.delete()
+
+    @classmethod
+    def search_projects(cls,search_term):
+        project = cls.objects.filter(title__icontains=search_term)
+        return project
+
+    @classmethod
+    def get_project(cls,id):
+        try:
+            project = Projects.objects.get(pk=id)
+        except ObjectDoesNotExist:
+            raise Http404()
+        return Project
+
+    @property
+    def design(self):
+        if self.reviews.count() == 0:
+            return 5
+        return sum([r.design for r in self.reviews.all()]) / self.reviews.count()
+
+
+    @property
+    def usability(self):
+        if self.reviews.count() == 0:
+            return 5
+        return sum([r.usability for r in self.reviews.all()]) / self.reviews.count()
+    
+    @property
+    def creativity(self):
+        if self.reviews.count() == 0:
+            return 5
+        return sum([r.creativity for r in self.reviews.all()]) / self.reviews.count()
+
+    @property
+    def content(self):
+        if self.reviews.count() == 0:
+            return 5
+        return sum([r.content for r in self.reviews.all()]) / self.reviews.count()
+
 class Profile(models.Model):
     profile_picture=models.ImageField(upload_to='users/', default='user.png')
     user=models.OneToOneField(User, on_delete=models.CASCADE)
     bio=models.TextField(default='Review')
+
+    def __str__(self):
+        return f'{self.user.username} Profile' 
+    def save(self,*args, **kwargs):
+        super().save(*args, **kwargs)
 
 
 class Review(models.Model):
@@ -30,3 +86,11 @@ class Review(models.Model):
     content =  models.IntegerField(choices=ratings, default=0)
     overall_score = models.IntegerField(blank=True, default=0)
 
+    def save_rate(self):
+            self.save()
+
+    def delete_rate(self):
+        self.delete()
+
+    def get_absolute_url(self):
+        return reverse('projects-index')
