@@ -12,22 +12,7 @@ class Project(models.Model):
     submitted = models.DateTimeField(auto_now_add=True)
     
 
-    @property
-    def design(self):
-        if self.reviews.count() == 0:
-            return 5
-        return sum([r.design for r in self.reviews.all()]) / self.reviews.count()
-
-
-    @property
-    def usability(self):
-        one = Review.objects.all().aggregate(models.Avg('usability'))['usability__avg']
-        return one
-
-    @property
-    def creativity(self):
-        one = Review.objects.all().aggregate(models.Avg('creativity'))['creativity__avg']
-        return one
+    
 
     @property
     def content(self):
