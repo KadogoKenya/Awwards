@@ -1,0 +1,53 @@
+{% extends 'award/base.html' %}
+{% load bootstrap3 %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div class="card">
+                <img class="card-img-top" height="500px" src="{{project.screenshot.url}}" alt="Card image cap">
+                <!-- <img src="{{ object.screenshot.url }}" class=" one"> -->
+
+
+                <div class="card-body">
+                    <!-- <h1>Project title:{{object.title }}</h1> -->
+                    <h1>Project description:{{object.description }}</h1>
+                    <h1>Project owner:{{object.user }}</h1>
+                    <!-- <h1>Project submitted on: {{object.date_posted|date:"F d, Y"}}</h1> -->
+
+                    <h3>Design: {{object.design|floatformat:2}}</h3>
+                    <h3>Usability: {{object.usability|floatformat:2}}</h3>
+                    <h3>Creativity{{object.creativity|floatformat:2}}</h3>
+                    <h3>content: {{object.content|floatformat:2}}</h3>
+                </div>
+                <div class="card-footer text-center">
+                    <a href="{% url 'review-create' project.pk %}">Review this project</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+{% endblock content %}
+
+<div class="col-md-6 mb-4 ">
+    <div class="card">
+        <img class="card-img-top" height="500px" src="{{project.screenshot.url}}" alt="Card image cap">
+        <div class="card-body">
+            <p class="card-text"><strong>Title : </strong>{{project.title}}</p>
+            <p class="card-text"><strong>Description : </strong>{{project.description}}</p>
+            <p class="card-text"><strong>Designed By</strong>: {{project.user}}</p>
+
+            <a href="{% url 'project-detail' project.pk %}">Review project</a>
+
+            <a class="float-right" href="{{ project.url }}" target="_blank">View Site</a>
+
+
+        </div>
+    </div>
+</div>
