@@ -1,103 +1,34 @@
-from django.shortcuts import render,redirect, get_object_or_404
+from django.shortcuts import render
 from django.http import HttpResponse
+from .models import Project, Review
+from django.views.generic import  ListView,DetailView, CreateView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.shortcuts import get_object_or_404
+
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
-from django.views.generic import ListView,DetailView,CreateView,UpdateView,DeleteView
-from .models import  Projects,Profile
-from .serializer import ProjectsSerializer,ProfileSerializer
+from .models import Project
+from .serializer import MerchSerializer,profileSerializer
+from users.models import Profile
 
-class PostListView(ListView):
-    model=Projects
-    template_name='index.html'
-    context_object_name='projects'
-    ordering=['-created_date']
+# def index(request):
+#     return render(request, 'award/index.html')
 
-class PostDetailView(DetailView):
-    model = Projects
 
-class PostCreateView(LoginRequiredMixin, CreateView):
-    model = Projects
-    success_url = '/'
-    fields =['author','image','description', 'title' ,'link']
-
-    def form_valid(self, form):
-        form.instance.profile = self.request.user.profile
-        return super ().form_valid(form)
-
-class PostUpdateView(LoginRequiredMixin,UserPassesTestMixin,  UpdateView):
-    model = Projects
-    success_url = '/'
-    fields =['author','image','description', 'title' ,'link']
-
-    def form_valid(self, form):
-        form.instance.profile = self.request.user.profile
-        return super ().form_valid(form)
-
-    def test_func(self):
-        post = self.get_object()
-        if self.request.user.profile == post.author_profile:
-            return True
-        return False
-
-class PostDeleteView(LoginRequiredMixin,UserPassesTestMixin,DeleteView):
-    model = Projects
-    success_url ='/'
-
-    def test_func(self):
-        post = self.get_object()
-        if self.request.user.profile == post.author_profile:
-            return True
-        return False
-
-@login_required
-def Projectsproject(request):
-    current_user = request.user
-    if request.method == 'Projects':
-        form = ProjectForm(request.Projects, request.FILES)
-        if form.is_valid():
-            project = form.save(commit=False)
-            project.author = current_user
-            project.save()
-        return redirect('/')
-    else:
-        form = ProjectForm()
-    context = {
-        'form':form,
-    }
-    return render(request, 'create-project.html', context)
-
-def get_project(request, id):
-    project = Projects.objects.get(pk=id)
-
-    return render(request, 'project.html', {'project':project})
-
-class ProjectsDetailView(DetailView):
-    model = Projects
+class ProjectCreateView(LoginRequiredMixin,CreateView):
     
-
-class ProjectsCreateView(LoginRequiredMixin, CreateView):
-    model = Projects
-    fields =['author','image','description', 'title' ,'link']
-
+    model = Project
+    fields = ['sitename', 'description', 'url', 'screenshot']
+    
     def form_valid(self, form):
-        form.instance.profile = self.request.user.profile
-        return super ().form_valid(form)
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
-
-class ProjectsUpdateView(LoginRequiredMixin,UserPassesTestMixin,  UpdateView):
-    model = Projects
-    fields =['author','image','description', 'title' ,'link']
-
-    def form_valid(self, form):
-        form.instance.profile = self.request.user.profile
-        return super ().form_valid(form)
-
-    def test_func(self):
-        Projects = self.get_object()
-        if self.request.user.profile == Projects.profile:
-            return True
-        return False
+class ProjectListView(ListView):
+    model = Project
+    template_name = 'award/index.html'  #<app>/<model>_<viewtype>.html
+    context_object_name = 'projects'
+    ordering = ['-submitted']
 
 class ReviewCreateView(LoginRequiredMixin,CreateView):
     model = Review
@@ -108,7 +39,7 @@ class ReviewCreateView(LoginRequiredMixin,CreateView):
         Overridden so we can make sure the `Project` instance exists
         before going any further.
         """
-        self.project = get_object_or_404(Projects, pk=kwargs['pk'])
+        self.project = get_object_or_404(Project, pk=kwargs['pk'])
         return super().dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
@@ -116,25 +47,18 @@ class ReviewCreateView(LoginRequiredMixin,CreateView):
         form.instance.project = self.project
         return super().form_valid(form)
 
-class ProjectsList(APIView):
+class ProjectDetailView(DetailView):
+    model = Project
+    
+class MerchList(APIView):
     def get(self, request, format=None):
-        all_projects = Projects.objects.all()
-        serializers = ProjectsSerializer(all_projects, many=True)
-        return Response(serializers.data)
+        all_merch = Project.objects.all()
+        serializer = MerchSerializer(all_merch, many=True)
+        return Response(serializer.data)
 
-class ProfileList(APIView):
+class profileList(APIView):
     def get(self, request, format=None):
         all_profile = Profile.objects.all()
-        serializers = ProfileSerializer(all_profile, many=True)
+        serializers = profileSerializer(all_profile, many=True)
         return Response(serializers.data)
-
-def display_profile(request,username):
-    profile = Profile.objects.get(user__username= username)
-
-    user_projects = Projects.objects.filter(author_profile =profile).order_by('created_date')
-
-    context={
-        "profile":profile,
-        "user_projects":user_projects
-    }
-    return render(request,'profile_details.html',context)
+    
