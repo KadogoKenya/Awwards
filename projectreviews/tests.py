@@ -13,7 +13,10 @@ class ProjectsTestClass(TestCase):
     def tearDown(self):
         Projects.objects.all().delete()
 
-    
+    def test_save_method(self):
+        self.description.save_location()
+        projects = Projects.objects.all()
+        self.assertTrue(len(projects)>0)
 
     def test_delete_method(self):
         self.description.delete_location('description')
