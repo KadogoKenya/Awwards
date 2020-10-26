@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from .models import Project, Review
 from django.views.generic import  ListView,DetailView, CreateView, UpdateView, DeleteView
@@ -10,7 +10,8 @@ from rest_framework.views import APIView
 from .models import Project
 from .serializer import MerchSerializer,profileSerializer
 from users.models import Profile
-from .forms import NewProjectForm,
+from .forms import NewProjectForm
+
 # from .models import  MoringaMerch
 
 # def index(request):
@@ -64,7 +65,7 @@ class profileList(APIView):
         serializers = profileSerializer(all_profile, many=True)
         return Response(serializers.data)
 
-@login_required(login_url='/login/')
+# @login_required(login_url='/login/')
 def new_project(request):
     current_user = request.user
     if request.method == 'POST':

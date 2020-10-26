@@ -1,9 +1,13 @@
+from django import forms
 from .models import Project
+
+# from . import forms
 #......
 class NewProjectForm(forms.ModelForm):
     class Meta:
         model = Project
-        # exclude = ['editor', 'pub_date']
+        # exclude = ['submitted']
+        fields=['description','sitename','screenshot','url']
         widgets = {
             'tags': forms.CheckboxSelectMultiple(),
         }
