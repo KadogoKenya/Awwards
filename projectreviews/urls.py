@@ -12,6 +12,8 @@ urlpatterns = [
     path('', ProjectListView.as_view(), name='index'),
     path('review/new/<int:pk>/', ReviewCreateView.as_view(), name='review-create'),
     path('project/<int:pk>/', ProjectDetailView.as_view(), name='project-detail'),
+    url(r'^new/project$', views.new_project, name='new-project')
+
 ]
 
 if settings.DEBUG:

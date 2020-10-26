@@ -10,6 +10,7 @@ from rest_framework.views import APIView
 from .models import Project
 from .serializer import MerchSerializer,profileSerializer
 from users.models import Profile
+from .forms import NewProjectForm,
 # from .models import  MoringaMerch
 
 # def index(request):
@@ -62,4 +63,19 @@ class profileList(APIView):
         all_profile = Profile.objects.all()
         serializers = profileSerializer(all_profile, many=True)
         return Response(serializers.data)
+
+@login_required(login_url='/login/')
+def new_project(request):
+    current_user = request.user
+    if request.method == 'POST':
+        form = NewProjectForm(request.POST, request.FILES)
+        if form.is_valid():
+            project = form.save(commit=False)
+            project.user = current_user
+            project.save()
+        return redirect('index')
+
+    else:
+        form = NewProjectForm()
+    return render(request, 'new_project.html', {"form": form})
     
