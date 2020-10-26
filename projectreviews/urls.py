@@ -5,6 +5,8 @@ from .views import  ProjectCreateView, ProjectListView, ReviewCreateView, Projec
 from django.conf import settings
 from django.conf.urls.static import static
 
+
+
 urlpatterns = [
     path('project/new/', ProjectCreateView.as_view(), name='project-create'),
     path('', ProjectListView.as_view(), name='index'),

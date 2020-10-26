@@ -24,6 +24,8 @@ from projectreviews import views
 from projectreviews.views import MerchList, profileList
 
 
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('projectreviews.urls')),
@@ -34,5 +36,5 @@ urlpatterns = [
     path('display_profile/', user_views.display_profile, name='display_profile'),
     path('projector-api/', views.MerchList.as_view(), name='projector_api'),
     path('profiler-api/', views.profileList.as_view(), name='profiler_api'),
-    url(r'^api-token-auth/', obtain_auth_token)
+    url(r'^api-token-auth/', obtain_auth_token),
 ]
