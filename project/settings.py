@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'bootstrap3',
     'star_ratings',
+    'tinymce',
     'crispy_forms',
     'rest_framework',
     'rest_framework.authtoken',

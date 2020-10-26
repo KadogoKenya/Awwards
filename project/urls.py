@@ -38,5 +38,7 @@ urlpatterns = [
     path('profiler-api/', views.profileList.as_view(), name='profiler_api'),
     url(r'^api-token-auth/', obtain_auth_token),
     path('ratings/', include('star_ratings.urls', namespace='ratings')),
+    url(r'^tinymce/', include('tinymce.urls')),
 
+    
 ]
