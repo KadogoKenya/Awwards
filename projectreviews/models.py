@@ -4,8 +4,8 @@ from django.urls import reverse
 
 # Create your models here.
 class Project(models.Model):
-    sitename = models.CharField(max_length=100)
     description = models.CharField(max_length=250)
+    sitename = models.CharField(max_length=100)
     url = models.CharField(max_length=50)
     screenshot = models.ImageField(upload_to = 'screenshots', default = 'default.jpg')
     user = models.ForeignKey(User, on_delete=models.CASCADE ,blank=True)
@@ -32,7 +32,7 @@ class Project(models.Model):
         return reverse('index')
 
 class Review(models.Model):
-    ratings = (1, 1),(2, 2),(3, 3),(4, 4),(5, 5),(6, 6),(7, 7),(8, 8),(9, 9),(10, 10)
+    # ratings = (1, 1),(2, 2),(3, 3),(4, 4),(5, 5),(6, 6),(7, 7),(8, 8),(9, 9),(10, 10)
     
     user = models.ForeignKey(User,on_delete=models.CASCADE, blank=True)
     project = models.ForeignKey(Project,on_delete=models.CASCADE, blank=True, related_name='reviews')

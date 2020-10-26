@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'bootstrap3',
+    'star_ratings',
     'crispy_forms',
     'rest_framework',
     'rest_framework.authtoken',
@@ -70,7 +71,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                
+                'django.template.context_processors.request',
             ],
         },
     },
@@ -151,3 +152,10 @@ CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 LOGIN_REDIRECT_URL = 'index'
 LOGIN_URL = 'login'
+
+STAR_RATINGS_RERATE = False
+STAR_RATINGS_RERATE_SAME_DELETE = True
+STAR_RATINGS_CLEARABLE = True
+STAR_RATINGS_CLEARABLE = True
+STAR_RATINGS_RANGE=5
+STAR_RATINGS_CLEARABLE = True

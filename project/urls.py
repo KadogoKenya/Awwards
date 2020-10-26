@@ -37,4 +37,6 @@ urlpatterns = [
     path('projector-api/', views.MerchList.as_view(), name='projector_api'),
     path('profiler-api/', views.profileList.as_view(), name='profiler_api'),
     url(r'^api-token-auth/', obtain_auth_token),
+    path('ratings/', include('star_ratings.urls', namespace='ratings')),
+
 ]
