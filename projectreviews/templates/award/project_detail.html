@@ -8,10 +8,7 @@
         <div class="col-md-2"></div>
         <div class="col-md-8">
             <div class="card">
-                <img class="card-img-top" height="500px" src="{{project.screenshot.url}}" alt="Card image cap">
-                <!-- <img src="{{ object.screenshot.url }}" class=" one"> -->
-
-
+                <img class="card-img-top" height="300px" src="{{project.screenshot.url}}">
                 <div class="card-body">
                     <!-- <h1>Project title:{{object.title }}</h1> -->
                     <h1>Project description:{{object.description }}</h1>
@@ -37,11 +34,10 @@
 
 <div class="col-md-6 mb-4 ">
     <div class="card">
-        <img class="card-img-top" height="500px" src="{{project.screenshot.url}}" alt="Card image cap">
         <div class="card-body">
             <p class="card-text"><strong>Title : </strong>{{project.title}}</p>
             <p class="card-text"><strong>Description : </strong>{{project.description}}</p>
-            <p class="card-text"><strong>Designed By</strong>: {{project.user}}</p>
+            <p class="card-text"><strong>POsted By</strong>: {{project.user}}</p>
 
             <a href="{% url 'project-detail' project.pk %}">Review project</a>
 

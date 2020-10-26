@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import Project
 from users.models import Profile
+from .models import MoringaMerch
 
 
 class MerchSerializer(serializers.ModelSerializer):
