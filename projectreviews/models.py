@@ -10,13 +10,10 @@ class Project(models.Model):
     screenshot = models.ImageField(upload_to = 'screenshots', default = 'default.jpg')
     user = models.ForeignKey(User, on_delete=models.CASCADE ,blank=True)
     submitted = models.DateTimeField(auto_now_add=True)
-    
 
-    @property
-    def design(self):
-        if self.reviews.count() == 0:
-            return 5
-        return sum([r.design for r in self.reviews.all()]) / self.reviews.count()
+    design=models.IntegerField(default=0)
+    usability=models.IntegerField(default=0)
+    content=models.IntegerField(default=0)    
 
 
     def save_project(self):
@@ -38,6 +35,7 @@ class Review(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE, blank=True)
     project = models.ForeignKey(Project,on_delete=models.CASCADE, blank=True, related_name='reviews')
 
+
     def save_rate(self):
             self.save()
 
@@ -50,8 +48,8 @@ class Review(models.Model):
 class Comments(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     comments = models.TextField(max_length=400)     
-    pro_id = models.IntegerField(default=0) 
-    
+    project_id = models.IntegerField(default=0) 
+
 
 class MoringaMerch(models.Model):
     name = models.CharField(max_length=40)

@@ -48,7 +48,7 @@
                         <p class="card-text"><strong>Description : </strong>{{project.description}}</p>
                         <p class="card-text"><strong>Designed By</strong>: {{project.user}}</p>
     
-                        <a href="{% url 'project-detail' project.pk %}">Review project</a>
+                        <a href="{% url 'projects' project.pk%}">Review project</a>
     
                         <a class="float-right" href="{{ project.url }}" target="_blank">View Site</a>
                         
