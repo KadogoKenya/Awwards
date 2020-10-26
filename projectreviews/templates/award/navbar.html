@@ -26,20 +26,25 @@
                 <i class="far fa-user-circle fa-2x"></i>
             </a>
             <div class="item has-tablet" id="bt-submit">
-                    <a href="{% url 'project-create' %}" class="button button-large">
+                    <a href="{% url 'new-project' %}" class="button button-large">
                         <span>SUBMIT YOUR SITE!</span>
                     </a>
 
 
                 </div>
-                <div class="create">
+                <!-- <div class="create">
                         <span> <a href="{%url 'new-project'%}">Create Project</a></span>
-                </div>
+                </div> -->
             {% else %}
             <div>
                  <strong><a class="text-black" href="{% url 'register' %}">Register </a></strong> |
                 <strong><a class="text-black" href="{% url 'login' %}"> log in</a></strong>
                
+            </div>
+            <div class="item has-tablet" id="bt-submit">
+                <a href="{% url 'new-project' %}" class="button button-large">
+                    <span>SUBMIT YOUR SITE!</span>
+                </a>
             </div>
 
             {% endif %}   

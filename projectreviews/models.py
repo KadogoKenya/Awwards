@@ -32,7 +32,7 @@ class Project(models.Model):
         return reverse('index')
 
 class Review(models.Model):
-    # ratings = (1, 1),(2, 2),(3, 3),(4, 4),(5, 5),(6, 6),(7, 7),(8, 8),(9, 9),(10, 10)
+    
     
     user = models.ForeignKey(User,on_delete=models.CASCADE, blank=True)
     project = models.ForeignKey(Project,on_delete=models.CASCADE, blank=True, related_name='reviews')

@@ -11,11 +11,7 @@ from .models import Project
 from .serializer import MerchSerializer,profileSerializer
 from users.models import Profile
 from .forms import NewProjectForm
-
-# from .models import  MoringaMerch
-
-# def index(request):
-#     return render(request, 'award/index.html')
+from django.contrib.auth.decorators import login_required
 
 
 class ProjectCreateView(LoginRequiredMixin,CreateView):
@@ -29,7 +25,7 @@ class ProjectCreateView(LoginRequiredMixin,CreateView):
 
 class ProjectListView(ListView):
     model = Project
-    template_name = 'award/index.html'  #<app>/<model>_<viewtype>.html
+    template_name = 'award/index.html'
     context_object_name = 'projects'
     ordering = ['-submitted']
 
@@ -65,7 +61,7 @@ class profileList(APIView):
         serializers = profileSerializer(all_profile, many=True)
         return Response(serializers.data)
 
-# @login_required(login_url='/login/')
+@login_required(login_url='/login/')
 def new_project(request):
     current_user = request.user
     if request.method == 'POST':
