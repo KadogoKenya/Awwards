@@ -1,7 +1,8 @@
 {% extends 'award/base.html' %}
 {% load bootstrap3 %}
-{% load crispy_forms_tags%}
+{% load crispy_forms_tags %}
 {% block content%}
+{% include 'award/navbar.html' %}
 <div class="container">
     <div class="row">
         <div class="col-4"></div>
@@ -18,10 +19,9 @@
                             <button class="btn btn-outline-info" type="submit">Review</button>
                         </div>
                     </form>
-                </div>
-                
+                </div>  
             </div>
-            <div class="col-4"></div>
+        <div class="col-4"></div>
     </div>
     
 
