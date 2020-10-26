@@ -32,8 +32,8 @@ class Review(models.Model):
     design=models.PositiveIntegerField(default=0)
     usability=models.PositiveIntegerField(default=0)
     content=models.PositiveIntegerField(default=0)
-    user = models.ForeignKey(User,on_delete=models.CASCADE, blank=True)
-    project = models.ForeignKey(Project,on_delete=models.CASCADE, blank=True, related_name='reviews')
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    project = models.IntegerField(default=0)
 
 
     def save_rate(self):
