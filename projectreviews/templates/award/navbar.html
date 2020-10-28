@@ -25,25 +25,17 @@
                <i>{{ user | upper}}</i>
                 <i class="far fa-user-circle fa-2x"></i>
             </a>
-            <div class="item has-tablet" id="bt-submit">
-                    <a href="{% url 'new-project' %}" class="button button-large">
-                        <span>SUBMIT YOUR SITE!</span>
-                    </a>
-
-
-                </div>
-                
+           
             {% else %}
             <div>
                  <strong><a class="text-black" href="{% url 'register' %}">Register </a></strong> |
                 <strong><a class="text-black" href="{% url 'login' %}"> log in</a></strong>
-               
+                 <a href="{% url 'new-project' %}" class="btn btn-lg btn-outline-success"><span>SUBMIT YOUR SITE!</span>
+                </a> 
             </div>
-            <div class="item has-tablet" id="bt-submit">
-                <a href="{% url 'new-project' %}" class="button button-large">
-                    <span>SUBMIT YOUR SITE!</span>
-                </a>
-            </div>
+            <div></div>
+            <div></div>
+            
 
             {% endif %}   
         </div>

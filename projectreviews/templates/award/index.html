@@ -42,7 +42,9 @@
             {% for project in projects %}
             <div class="col-md-3 mb-4 p-5">
                 <div class="card">
-                    <img class="card-img-top" height="500px" src="{{project.screenshot.url}}" alt="Card image cap">
+                    
+                    <img class="card-img-top view-overlay-zoom" height="500px" src="{{project.screenshot.url}}" alt="Card image cap">
+                   
                     <div class="card-body">
                         <p class="card-text"><strong>Title : </strong>{{project.title}}</p>
                         <p class="card-text"><strong>Description : </strong>{{project.description}}</p>
